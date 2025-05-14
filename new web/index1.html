@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ProShop - Professional Product Selling Website</title>
+<style>
+  /* Reset */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #2e3944;
+    color: #124e66;
+    line-height: 1.6;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* Navbar */
+  header {
+    background-color: #222;
+    color: white;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #124e66;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.8rem;
+    flex-wrap: wrap;
+  }
+
+  nav ul li a {
+    color: #ddd;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+
+  nav ul li a:hover {
+    color: #124e66;
+  }
+
+  /* Hero Section */
+  .hero {
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.85),
+        #2e3944
+      ),
+      url('https://images.unsplash.com/photo-1515169067865-3a3e2c580dbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+    color: #d3d9d4;
+    padding: 6rem 2rem 8rem;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+    max-width: 900px;
+    margin: 0 auto 1rem;
+    font-weight: 900;
+    line-height: 1.1;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  }
+
+  .btn-primary {
+    background-color:#124e66;
+    color: white;
+    font-weight: 700;
+    padding: 1rem 2.5rem;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 6px 10px rgba(0,0,0,0.6);
+  }
+
+  .btn-primary:hover {
+    background-color: transparent;
+  }
+
+  /* Section Titles */
+  section h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-weight: 900;
+    font-size: 2rem;
+    letter-spacing: 1.4px;
+    color: #222;
+  }
+
+  /* Products Section */
+  section.products {
+    max-width: 1200px;
+    margin: -6rem auto 4rem;
+    padding: 0 2rem 4rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    gap: 2.5rem;
+  }
+
+  .product-card {
+    background:#d3d9d4;
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+  }
+
+  .product-image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .product-content {
+    padding: 1.5rem 1.8rem 2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    color: #222;
+  }
+
+  .product-description {
+    flex-grow: 1;
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 1.3rem;
+  }
+
+  .product-price {
+    font-weight: 700;
+    color: #124e66;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .btn-buy {
+    background-color: #000000;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.8rem;
+    border-radius: 25px;
+    font-weight: 700;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-buy:hover {
+    background-color: #124e66;
+  }
+
+  /* Video Section */
+  section.video-section {
+    background-color: #748d92;
+    max-width: 900px;
+    margin: 4rem auto 4rem;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    text-align: center;
+    
+  }
+
+  .video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .video-wrapper iframe,
+  .video-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Testimonials Section */
+  section.testimonials {
+    background-color:#748d92;
+    color: white;
+    padding: 4rem 2rem;
+    max-width: 1000px;
+    margin: 0 auto 4rem;
+    border-radius: 15px;
+  }
+
+  .testimonial {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-style: italic;
+    font-size: 1.15rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .testimonial-footer {
+    margin-top: 1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 1rem;
+  }
+
+  /* About Section */
+  section.about {
+    background:#748d92;
+    max-width: 1000px;
+    margin: 4rem auto 4rem;
+    padding: 3rem 2rem;
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    line-height: 1.7;
+    color: #222;
+  }
+
+  section.about p {
+    max-width: 700px;
+    margin: 0 auto 1.5rem;
+    font-size: 1.1rem;
+  }
+
+  /* Services Section */
+  section.services {
+    background-color: #748d92;
+    max-width: 1000px;
+    margin: 4rem auto 4rem;
+    padding: 3rem 2rem;
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  }
+
+  .service-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 2rem;
+  }
+
+  .service {
+    flex: 1 1 250px;
+    background: #2e3944;
+    padding: 1.8rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+
+  .service h3 {
+    margin-bottom: 1rem;
+    color: #00bcd4;
+  }
+
+  .service p {
+    color: white;
+    font-size: 1rem;
+  }
+
+  /* Footer */
+  footer {
+    background-color: #222;
+    color: #ccc;
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.6px;
+  }
+
+  footer a {
+    color: #124e66;
+    margin: 0 0.7rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+
+  footer a:hover {
+    color: #00a4b4;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2.2rem;
+    }
+
+    nav ul {
+      gap: 1rem;
+    }
+
+    .product-content {
+      padding: 1.2rem 1.3rem 1.8rem;
+    }
+
+    .service-list {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .service {
+      max-width: 350px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .btn-primary {
+      padding: 0.9rem 2rem;
+      font-size: 1rem;
+    }
+    section.testimonials {
+      padding: 3rem 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="navbar" role="navigation" aria-label="Primary Navigation">
+    <a href="#" class="logo" aria-label="ProShop Home">ProShop</a>
+    <nav>
+      <ul>
+        <li><a href="#products" tabindex="0">Products</a></li>
+        <li><a href="#video" tabindex="0">Video</a></li>
+        <li><a href="#about" tabindex="0">About Us</a></li>
+        <li><a href="#services" tabindex="0">Services</a></li>
+        <li><a href="#testimonials" tabindex="0">Testimonials</a></li>
+        <li><a href="#contact" tabindex="0">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" role="banner" aria-label="Hero Section">
+  <h1>The Best Gear for Your Next Adventure</h1>
+  <p>Discover professional quality products designed for peak performance, durability, and style.</p>
+  <button class="btn-primary" onclick="alert('Thank you for your interest!')">Shop Now</button>
+</section>
+
+<section id="products" class="products" aria-label="Featured Products">
+  <article class="product-card" tabindex="0" aria-labelledby="prod1-title" aria-describedby="prod1-desc">
+    <img src="Product images\backpack.png" alt="Black Waterproof Hiking Backpack" class="product-image" />
+    <div class="product-content">
+      <h3 class="product-title" id="prod1-title">Waterproof Hiking Backpack</h3>
+      <p class="product-description" id="prod1-desc">Stay prepared on the trails with this rugged, spacious backpack that resists water and resists wear.</p>
+      <div class="product-price">₹2,590</div>
+     <button class="btn-buy"> <a  href="https://amzn.in/d/0ro7iGX" target="_blank">Buy Now</a></button>
+    </div>
+  </article>
+
+  <article class="product-card" tabindex="0" aria-labelledby="prod2-title" aria-describedby="prod2-desc">
+    <img src="Product images\gym-composition-with-sport-elements.jpg" alt="Lightweight Running Shoes in red" class="product-image" />
+    <div class="product-content">
+      <h3 class="product-title" id="prod2-title">Lightweight Running Shoes</h3>
+      <p class="product-description" id="prod2-desc">Experience comfort and speed with footwear designed to boost your running performance.</p>
+      <div class="product-price">Currently unavailable.</div>
+      <button class="btn-buy"> <a  href="https://amzn.in/d/j1KAYZS" target="_blank">Buy Now</a></button>
+    </div>
+  </article>
+
+  <article class="product-card" tabindex="0" aria-labelledby="prod3-title" aria-describedby="prod3-desc">
+    <img src="Product images\asian-traveler-man-glasses-frying-tasty-fried-egg-hot-pan-campsite-outdoor-cooking-traveling-camping-lifestyle-concept.jpg" alt="Stainless Steel Camping Cookware Set" class="product-image" />
+    <div class="product-content">
+      <h3 class="product-title" id="prod3-title">Camping Cookware Set</h3>
+      <p class="product-description" id="prod3-desc">Compact, durable cookware for outdoor enthusiasts who demand performance and convenience.</p>
+      <div class="product-price">₹1,949</div>
+      <button class="btn-buy"> <a  href="https://amzn.in/d/64vCiL0" target="_blank">Buy Now</a></button>
+    </div>
+  </article>
+
+  <article class="product-card" tabindex="0" aria-labelledby="prod4-title" aria-describedby="prod4-desc">
+    <img src="Product images\jens-kreuter-PKnn-nXCNhs-unsplash.jpg" alt="Smart Fitness Watch in black" class="product-image" />
+    <div class="product-content">
+      <h3 class="product-title" id="prod4-title">Smart Fitness Watch</h3>
+      <p class="product-description" id="prod4-desc">Track your workouts, heart rate, sleep, and more on this sleek fitness wearable.</p>
+      <div class="product-price">₹1,099</div>
+      <button class="btn-buy"> <a  href="https://amzn.in/d/2NhQd81" target="_blank">Buy Now</a></button>
+    </div>
+  </article>
+
+  <article class="product-card" tabindex="0" aria-labelledby="prod5-title" aria-describedby="prod5-desc">
+    <img src="Product images\c-d-x-PDX_a_82obo-unsplash.jpg" alt=" Headphones" class="product-image" />
+    <div class="product-content">
+      <h3 class="product-title" id="prod5-title">Headphones</h3>
+      <p class="product-description" id="prod5-desc">Immerse yourself in music with these premium over-ear noise-cancelling headphones.</p>
+      <div class="product-price">₹1,699</div>
+      <button class="btn-buy"> <a  href="https://amzn.in/d/7F9gs1t" target="_blank">Buy Now</a></button>
+    </div>
+  </article>
+
+  <article class="product-card" tabindex="0" aria-labelledby="prod6-title" aria-describedby="prod6-desc">
+    <img src="Product images\zac-gudakov-ybSzZe93b2c-unsplash.jpg" alt="Compact Drone with HD Camera" class="product-image" />
+    <div class="product-content">
+      <h3 class="product-title" id="prod6-title">Compact Drone with HD Camera</h3>
+      <p class="product-description" id="prod6-desc">Capture stunning aerial footage with this easy-to-fly compact drone.</p>
+      <div class="product-price">₹15,197</div>
+      <button class="btn-buy"> <a  href="https://amzn.in/d/14nQ7wf" target="_blank">Buy Now</a></button>
+    </div>
+  </article>
+
+  <article class="product-card" tabindex="0" aria-labelledby="prod7-title" aria-describedby="prod7-desc">
+    <img src="Product images\amo-fifty-FKKuHOLj59c-unsplash.jpg" alt="green and white dome tent" class="product-image" />
+    <div class="product-content">
+      <h3 class="product-title" id="prod7-title">green and white dome tent</h3>
+      <p class="product-description" id="prod7-desc">This tent is designed for camping and outdoor activities.Easy to set up and provides good ventilation with large windows and a ground vent. </p>
+      <div class="product-price">₹3,799</div>
+      <button class="btn-buy"> <a  href="https://amzn.in/d/bH7zcYK" target="_blank">Buy Now</a></button>
+    </div>
+  </article>
+
+  <article class="product-card" tabindex="0" aria-labelledby="prod8-title" aria-describedby="prod8-desc">
+    <img src="Product images\eric-teixido-Ru8OdJgI9I0-unsplash.jpg" alt="Portable Speaker" class="product-image" />
+    <div class="product-content">
+      <h3 class="product-title" id="prod8-title">Portable Speaker</h3>
+      <p class="product-description" id="prod8-desc">Take your music anywhere with this compact and powerful Bluetooth speaker.</p>
+      <div class="product-price">₹3,499</div>
+      <button class="btn-buy"> <a  href="https://amzn.in/d/9qy76oY" target="_blank">Buy Now</a></button>
+    </div>
+  </article>
+
+  <article class="product-card" tabindex="0" aria-labelledby="prod9-title" aria-describedby="prod9-desc">
+    <img src="Product images\tjeerd-braat-HpH0APYskXc-unsplash.jpg" alt="All-Weather Waterproof Jacket" class="product-image" />
+    <div class="product-content">
+      <h3 class="product-title" id="prod9-title">All-Weather Waterproof Jacket</h3>
+      <p class="product-description" id="prod9-desc">Stay dry and comfortable in any weather with this breathable, waterproof jacket.</p>
+      <div class="product-price">₹849</div>
+      <button class="btn-buy"> <a  href="https://amzn.in/d/gogYpoA" target="_blank">Buy Now</a></button>
+    </div>
+  </article>
+
+  <article class="product-card" tabindex="0" aria-labelledby="prod10-title" aria-describedby="prod10-desc">
+    <img src="Product images\karsten-winegeart-pCS5YlrskC8-unsplash.jpg" alt="Velocity Performance Adventure Sunglasses" class="product-image" />
+    <div class="product-content">
+      <h3 class="product-title" id="prod10-title">Velocity Performance Adventure Sunglasses</h3>
+      <p class="product-description" id="prod10-desc">Crafted from premium material, the sports frame exudes boldness and sophistication. Experience unparalleled comfort and durability with these luxurious sunglasses.</p>
+      <div class="product-price">₹399</div>
+      <button class="btn-buy"> <a  href="https://amzn.in/d/0xATNgy" target="_blank">Buy Now</a></button>
+    </div>
+  </article>
+  <article class="product-card" tabindex="0" aria-labelledby="prod10-title" aria-describedby="prod10-desc">
+    <img src="Product images\evan-wise-toRgWaZMqUQ-unsplash.jpg" alt="The Best Water Bottles For Travel" class="product-image" />
+    <div class="product-content">
+      <h3 class="product-title" id="prod10-title">The Best Water Bottles For Travel</h3>
+      <p class="product-description" id="prod10-desc">Hydro Flask 850 Stainless Steel Sipper Water Bottle 780 ml, Single Walled, ISI Certified I Leak Proof Lid, Rust Proof I </p>
+      <div class="product-price">₹839</div>
+      <button class="btn-buy"> <a  href="https://amzn.in/d/iaTpfaT" target="_blank">Buy Now</a></button>
+    </div>
+  </article>
+  <article class="product-card" tabindex="0" aria-labelledby="prod10-title" aria-describedby="prod10-desc">
+    <img src="Product images\Screenshot 2025-05-14 103451.png" alt="Velocity Performance Adventure Sunglasses" class="product-image" />
+    <div class="product-content">
+      <h3 class="product-title" id="prod10-title">Lyla 15 in 1 Camping Survival Kit</h3>
+      <p class="product-description" id="prod10-desc">Lyla® 15 in 1 Camping Survival Kit Multifunction |Sporting Goods | Outdoor Sports | Camping & Hiking</p>
+      <div class="product-price">₹4,116</div>
+      <button class="btn-buy"> <a  href="https://amzn.in/d/2ejzMVA" target="_blank">Buy Now</a></button>
+    </div>
+  </article>
+</section>
+
+<section id="video" class="video-section" aria-label="Product Video">
+  <h2>Beginner's Guide to Solo Backpacking: Essential Gear and Setup for Your First Adventure</h2>
+  <div class="video-wrapper">
+    <video controls poster="Videos\_6J-UPxiPPc-HD.jpg" aria-label="Product demonstration video">
+      <source src="Videos\Beginner's Guide to Solo Backpacking： Essential Gear and Setup for Your First Adventure (1).mp4" type="video/webm" />
+      <source src="Videos\Beginner's Guide to Solo Backpacking： Essential Gear and Setup for Your First Adventure (1).mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+      
+    </video>
+  </div>
+</section>
+
+<section id="about" class="about" aria-label="About Us">
+  <h2>About Us</h2>
+  <p>At ProShop, we are passionate about providing the highest quality products that empower your adventures and lifestyle. we curate a collection curated for durability, style, and practicality. Our team rigorously tests every item to ensure it meets professional standards and customer satisfaction.</p>
+  <p>We believe in innovation, sustainability, and exceptional customer service. Our goal is to build lasting relationships and help you explore the world with confidence and comfort.</p>
+</section>
+
+<section id="services" class="services" aria-label="Services We Offer">
+  <h2>Our Services</h2>
+  <div class="service-list">
+    <div class="service" tabindex="0">
+      <h3>Free Shipping</h3>
+      <p>Enjoy free shipping on all orders over $50 with fast and reliable delivery to your doorstep.</p>
+    </div>
+    <div class="service" tabindex="0">
+      <h3>30-Day Returns</h3>
+      <p>Not satisfied with your purchase? Return it hassle-free within 30 days for a full refund.</p>
+    </div>
+    <div class="service" tabindex="0">
+      <h3>24/7 Customer Support</h3>
+      <p>Our dedicated support team is available around the clock to assist with any questions or concerns.</p>
+    </div>
+    <div class="service" tabindex="0">
+      <h3>Product Warranty</h3>
+      <p>We offer industry-leading warranties on most products to ensure peace of mind with your purchase.</p>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials" class="testimonials" aria-label="Customer Testimonials">
+  <h2>What Our Customers Say</h2>
+  <blockquote class="testimonial" tabindex="0">
+    “Absolutely love my hiking backpack! It’s sturdy, waterproof, and can carry everything I need. Highly recommend ProShop!”
+    <footer class="testimonial-footer">- Emily R.</footer>
+  </blockquote>
+  <blockquote class="testimonial" tabindex="0">
+    “The running shoes fit perfectly and are so comfortable. Since I switched to ProShop’s shoes, my runs have never felt better.”
+    <footer class="testimonial-footer">- Jake T.</footer>
+  </blockquote>
+  <blockquote class="testimonial" tabindex="0">
+    “I bought the camping cookware set and it’s been perfect for my outdoor trips. Compact and durable. Great value!”
+    <footer class="testimonial-footer">- Sophia L.</footer>
+  </blockquote>
+</section>
+
+<footer id="contact" aria-label="Contact and Social Media">
+  <p>© 2024 ProShop. All rights reserved.</p>
+  <p>Contact us: <a href="mailto:support@proshop.com">support@proshop.com</a> | Phone: +1 234-567-8901</p>
+  <p>
+    Follow us:
+    <a href="#" aria-label="Facebook" target="_blank" rel="noopener">Facebook</a> |
+    <a href="#" aria-label="Twitter" target="_blank" rel="noopener">Twitter</a> |
+    <a href="#" aria-label="Instagram" target="_blank" rel="noopener">Instagram</a> |
+    <a href="#" aria-label="LinkedIn" target="_blank" rel="noopener">LinkedIn</a>
+  </p>
+</footer>
+</body>
+</html>
+
